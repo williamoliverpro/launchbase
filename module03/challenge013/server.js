@@ -1,6 +1,6 @@
 const express = require('express')
 const nunjucks = require('nunjucks')
-const courses = require('./data')
+const videos = require('./data')
 
 const server = express()
 
@@ -36,22 +36,14 @@ server.get('/about', function (req, res) {
 })
 
 server.get('/courses', function (req, res) {
-    return res.render("courses", { items: courses })
+    return res.render("courses", { items: videos })
 })
 
 server.get("/courses/:id", function (req, res) {
     const id = req.params.id;
 
-    const course = courses.find(function(course) {
-        return course.id == id
-    })
-
-    if (!course) {
-        return res.send("Course not found!")
-    }
-
-    return res.render("course", { item: course });
-})
+    return res.send(`O id fornecido na rota é: ${id}`);
+});
 
 server.use(function (req, res) {
     res.status(404).render("not-found");
